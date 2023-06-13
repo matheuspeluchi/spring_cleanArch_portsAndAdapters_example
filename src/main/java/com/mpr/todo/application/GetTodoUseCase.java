@@ -1,6 +1,4 @@
-package com.mpr.todo.usecases;
-
-import java.util.List;
+package com.mpr.todo.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,15 +9,14 @@ import com.mpr.todo.domain.ports.UseCase;
 import com.mpr.todo.domain.todo.dto.TodoDTO;
 
 @Service
-@Qualifier("ListTodosUsecase")
-public class ListTodosUsecase implements UseCase<Void, List<TodoDTO>> {
-
+@Qualifier("GetTodoUseCase")
+public class GetTodoUseCase implements UseCase<Long, TodoDTO> {
   @Autowired
   private TodoRepository todoRepository;
 
   @Override
-  public List<TodoDTO> execute(Void dto) {
-    return todoRepository.findAll();
+  public TodoDTO execute(Long id) {
+    return todoRepository.findById(id);
   }
 
 }

@@ -1,4 +1,4 @@
-package com.mpr.todo.usecases;
+package com.mpr.todo.application;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mpr.todo.domain.ports.TodoRepository;
 import com.mpr.todo.domain.ports.UseCase;
 import com.mpr.todo.domain.todo.dto.TodoDTO;
-import com.mpr.todo.presentation.dto.UpdateTodoDTO;
+import com.mpr.todo.infra.controllers.dto.UpdateTodoDTO;
 
 @Service
 @Qualifier("UpdateTodoUseCase")

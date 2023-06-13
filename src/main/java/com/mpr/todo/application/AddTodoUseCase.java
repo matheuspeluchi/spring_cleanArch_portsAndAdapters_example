@@ -1,4 +1,4 @@
-package com.mpr.todo.usecases;
+package com.mpr.todo.application;
 
 import java.time.LocalDateTime;
 
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.mpr.todo.domain.ports.TodoRepository;
 import com.mpr.todo.domain.ports.UseCase;
 import com.mpr.todo.domain.todo.dto.TodoDTO;
-import com.mpr.todo.domain.todo.models.Todo;
-import com.mpr.todo.presentation.dto.AddTodoDTO;
+import com.mpr.todo.domain.todo.entities.Todo;
+import com.mpr.todo.infra.controllers.dto.AddTodoDTO;
 
 @Service
 @Qualifier("AddTodoUsecase")

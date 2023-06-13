@@ -1,4 +1,4 @@
-package com.mpr.todo.presentation.controllers;
+package com.mpr.todo.infra.controllers;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mpr.todo.domain.ports.UseCase;
 import com.mpr.todo.domain.todo.dto.TodoDTO;
-import com.mpr.todo.presentation.dto.AddTodoDTO;
-import com.mpr.todo.presentation.dto.UpdateTodoDTO;
+import com.mpr.todo.infra.controllers.dto.AddTodoDTO;
+import com.mpr.todo.infra.controllers.dto.UpdateTodoDTO;
 
 @RestController
 @RequestMapping(value = "/todos")

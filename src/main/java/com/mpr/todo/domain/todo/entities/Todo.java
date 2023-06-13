@@ -1,4 +1,4 @@
-package com.mpr.todo.domain.todo.models;
+package com.mpr.todo.domain.todo.entities;
 
 import java.time.LocalDateTime;
 
