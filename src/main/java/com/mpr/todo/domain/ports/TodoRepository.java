@@ -12,4 +12,6 @@ public interface TodoRepository {
   public TodoDTO findById(Long id);
 
   public void deleteById(Long id);
+
+  public TodoDTO updateContent(TodoDTO todo);
 }

@@ -57,4 +57,11 @@ public class DatabaseTodoRepository implements TodoRepository {
 
   }
 
+  @Override
+  public TodoDTO updateContent(TodoDTO todo) {
+    TodoEntity todoEntity = new TodoEntity(todo);
+    TodoEntity updatedTodo = this.jpaRepository.save(todoEntity);
+    return this.entityToDTO(updatedTodo);
+  }
+
 }
