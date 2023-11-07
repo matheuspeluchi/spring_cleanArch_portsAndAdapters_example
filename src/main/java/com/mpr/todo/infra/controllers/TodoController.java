@@ -1,6 +1,7 @@
 package com.mpr.todo.infra.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,27 +14,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mpr.todo.domain.ports.UseCase;
-import com.mpr.todo.domain.todo.dto.TodoDTO;
+import com.mpr.todo.application.gateways.UseCase;
+import com.mpr.todo.domain.Todo;
 import com.mpr.todo.infra.controllers.dto.AddTodoDTO;
+import com.mpr.todo.infra.controllers.dto.TodoDTO;
 import com.mpr.todo.infra.controllers.dto.UpdateTodoDTO;
+import com.mpr.todo.infra.controllers.mappers.TodoDTOMapper;
 
 @RestController
 @RequestMapping(value = "/todos")
 public class TodoController {
+
+  @Autowired
+  private TodoDTOMapper todoDTOMapper;
+
   @Autowired
   private static final Logger logger = LoggerFactory.getLogger(TodoController.class);
 
   @Autowired
   @Qualifier("AddTodoUsecase")
-  private UseCase<AddTodoDTO, TodoDTO> insertUseCase;
+  private UseCase<Todo, Todo> insertUseCase;
 
   @Autowired
   @Qualifier("ListTodosUsecase")
-  private UseCase<Void, List<TodoDTO>> listUseCase;
+  private UseCase<Void, List<Todo>> listUseCase;
 
   @Autowired
   @Qualifier("DeleteTodoUseCase")
@@ -41,30 +47,37 @@ public class TodoController {
 
   @Autowired
   @Qualifier("GetTodoUseCase")
-  private UseCase<Long, TodoDTO> getUseCase;
+  private UseCase<Long, Todo> getUseCase;
 
   @Autowired
   @Qualifier("UpdateTodoUseCase")
-  private UseCase<UpdateTodoDTO, TodoDTO> updateUseCase;
+  private UseCase<Todo, Todo> updateUseCase;
 
   @PostMapping()
   public TodoDTO insertTodo(@RequestBody() AddTodoDTO addTodoDTO) {
-    return insertUseCase.execute(addTodoDTO);
+    Todo todo = todoDTOMapper.fromAddTodoDTO(addTodoDTO);
+    Todo createdTodo = insertUseCase.execute(todo);
+    return todoDTOMapper.toResponse(createdTodo);
   }
 
   @PutMapping()
   public TodoDTO updateContent(@RequestBody() UpdateTodoDTO updateTodoDTO) {
-    return this.updateUseCase.execute(updateTodoDTO);
+    Todo updateDTO = todoDTOMapper.fromUpdateTodoDTO(updateTodoDTO);
+    Todo updatedTodo = this.updateUseCase.execute(updateDTO);
+    return todoDTOMapper.toResponse(updatedTodo);
+
   }
 
   @GetMapping("{id}")
   public TodoDTO getTodo(@PathVariable("id") Long id) {
-    return getUseCase.execute(id);
+    Todo todo = getUseCase.execute(id);
+    return todoDTOMapper.toResponse(todo);
   }
 
   @GetMapping()
   public List<TodoDTO> listTodos() {
-    return listUseCase.execute(null);
+    List<Todo> todoList = listUseCase.execute(null);
+    return todoList.stream().map(todoDTOMapper::toResponse).collect(Collectors.toList());
   }
 
   @DeleteMapping("{id}")

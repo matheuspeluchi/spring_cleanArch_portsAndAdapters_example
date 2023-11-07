@@ -1,8 +1,8 @@
-package com.mpr.todo.infra.adapters.entities;
+package com.mpr.todo.infra.persistence;
 
 import java.time.LocalDateTime;
 
-import com.mpr.todo.domain.todo.dto.TodoDTO;
+import com.mpr.todo.infra.controllers.dto.TodoDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,24 +11,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "todo")
 @Entity
 public class TodoEntity {
-
-  public TodoEntity(TodoDTO todo) {
-    this.id = todo.id;
-    this.title = todo.title;
-    this.description = todo.description;
-    this.isDone = todo.isDone;
-    this.createdAt = todo.createdAt;
-    this.updatedAt = todo.updatedAt;
-  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

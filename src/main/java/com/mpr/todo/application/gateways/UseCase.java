@@ -1,4 +1,4 @@
-package com.mpr.todo.domain.ports;
+package com.mpr.todo.application.gateways;
 
 public interface UseCase<I, O> {
 

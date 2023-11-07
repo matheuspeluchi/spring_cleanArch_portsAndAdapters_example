@@ -1,14 +1,16 @@
-package com.mpr.todo.domain.todo.dto;
+package com.mpr.todo.infra.controllers.dto;
 
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TodoDTO {
 
   public Long id;
